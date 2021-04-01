@@ -42,7 +42,6 @@ app.post('/addOrder', (req,res) =>{
   // console.log('adding new order', order)
   ordersCollection.insertOne(order)
   .then(result => {
-      // console.log('inserted number' , result.insertedCount )
       res.send(result.insertedCount> 0)
   })
 })
