@@ -12,16 +12,13 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
-
-
-
-
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.zroly.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
-console.log(uri);
+// console.log(uri);
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
     console.log('connection err', err)
   const productCollection = client.db("grocery").collection("products");
+  const ordersCollection = client.db("grocery").collection("orders");
 //  console.log('database connected successfully')
 app.get('/products',(req,res) => {
   productCollection.find()
@@ -35,11 +32,20 @@ app.post('/addProduct', (req,res) =>{
     console.log('adding new product', newProduct)
     productCollection.insertOne(newProduct)
     .then(result => {
-        console.log('inserted count' , result.insertedCount )
+        // console.log('inserted count' , result.insertedCount )
         res.send(result.insertedCount> 0)
     })
 })
 //   client.close();
+app.post('/addOrder', (req,res) =>{
+  const order = req.body;
+  // console.log('adding new order', order)
+  ordersCollection.insertOne(order)
+  .then(result => {
+      // console.log('inserted number' , result.insertedCount )
+      res.send(result.insertedCount> 0)
+  })
+})
 });
 
 
