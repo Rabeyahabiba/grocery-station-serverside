@@ -20,4 +20,4 @@ Site link:(https://grocery-station.web.app/).
   - Firebase Athuentication
   
 
- ### [Back-end Repository](https://github.com/Rabeyahabiba/grocery-station)
+ ### [Frontend Repository](https://github.com/Rabeyahabiba/grocery-station)
